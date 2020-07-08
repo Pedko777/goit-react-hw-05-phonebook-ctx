@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 
-const Context = createContext();
+const { Consumer, Provider } = createContext();
 
 const themeConfig = {
   light: {
@@ -16,7 +16,7 @@ const themeConfig = {
 };
 
 export default class ThemeContext extends Component {
-  static Consumer = Context.Consumer;
+  static Consumer = Consumer;
 
   themeToggle = () => {
     this.setState(prevState => {
@@ -35,10 +35,6 @@ export default class ThemeContext extends Component {
   };
 
   render() {
-    return (
-      <Context.Provider value={this.state}>
-        {this.props.children}
-      </Context.Provider>
-    );
+    return <Provider value={this.state}>{this.props.children}</Provider>;
   }
 }

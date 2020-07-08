@@ -39,7 +39,7 @@ class ConatctForm extends Component {
           Phone number*
           <input
             className={styles.input}
-            type="number"
+            type="tel"
             name="number"
             value={number}
             onChange={this.handleChange}

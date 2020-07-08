@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import ContactList from './components/contactList/ContactList';
 import Filter from './components/filter/Filter';
 import styles from './App.css';
+import withTheme from "./components/hoc/withTheme"
+import { Logo } from './components/logo/Logo';
 
 class App extends Component {
   state = {
@@ -22,16 +24,17 @@ class App extends Component {
       name: name,
       number: number,
     };
-    
-      this.state.contacts.find(({ name }) => name === contact.name && contact.name)
-        ? alert(`${contact.name} already exists`)
-        : this.setState(prevState => {
-            return {
-              contacts: [...prevState.contacts, contact],
-            };
-          });
-    };
 
+    this.state.contacts.find(
+      ({ name }) => name === contact.name && contact.name,
+    )
+      ? alert(`${contact.name} already exists`)
+      : this.setState(prevState => {
+          return {
+            contacts: [...prevState.contacts, contact],
+          };
+        });
+  };
 
   deleteContact = id => {
     this.setState(prevState => {
@@ -63,9 +66,20 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+    const { themeConfig, toggle } = this.props;
+    console.log(this.props)
+    
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div
+        style={{ color: themeConfig.fontColor, background: themeConfig.bodybg }}
+      >
+        <div>
+          <>
+            <Logo />
+            <button onClick={toggle}>Change Theme</button>
+          </>
+        </div>
+
         <ConatctForm onSubmit={this.addContact} />
 
         <h2 className={styles.sectionTitle}>Contacts</h2>
@@ -81,4 +95,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withTheme(App);
